@@ -43,7 +43,7 @@ export function registerDiagnosticTool(server: McpServer) {
           nodeEnv: process.env.NODE_ENV || "Not set",
           port: process.env.PORT || 3100,
         },
-        sampleCompanies: sampleCompanies.map((c) => ({
+        sampleCompanies: sampleCompanies.map((c: any) => ({
           company: c.company,
           chats: c._count.chats,
           llms: c._count.llms,
