@@ -1,7 +1,5 @@
 import { MCPResponse, Company } from "../types";
-
-const MCP_SERVER_URL =
-  import.meta.env.VITE_MCP_SERVER_URL || "http://localhost:3100/mcp";
+import { MCP_SERVER_URL, API_ENDPOINTS } from "../constants";
 
 export class MCPService {
   private parseSSEResponse(sseText: string): any {
@@ -40,7 +38,7 @@ export class MCPService {
 
       if (MCP_SERVER_URL.startsWith("/api/")) {
         // Using Vite proxy - construct proxy health URL
-        healthUrl = "/api/health";
+        healthUrl = API_ENDPOINTS.HEALTH;
       } else {
         // Direct URL - extract base URL and construct health endpoint
         const url = new URL(MCP_SERVER_URL);

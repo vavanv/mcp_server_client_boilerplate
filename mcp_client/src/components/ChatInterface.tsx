@@ -14,6 +14,7 @@ import { Send as SendIcon, Psychology as SmartIcon } from "@mui/icons-material";
 import { ChatMessage } from "../types";
 import { openaiService } from "../services/openaiService";
 import { mcpService } from "../services/mcpService";
+import { MCP_SERVER_URL } from "../constants";
 
 const ChatInterface: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -47,10 +48,8 @@ const ChatInterface: React.FC = () => {
       }
     } catch (err) {
       setIsConnected(false);
-      const mcpUrl =
-        import.meta.env.VITE_MCP_SERVER_URL || "http://localhost:3100/mcp";
       setError(
-        `Cannot connect to MCP server. Make sure it's running on ${mcpUrl}. Check browser console for details.`
+        `Cannot connect to MCP server. Make sure it's running on ${MCP_SERVER_URL}. Check browser console for details.`
       );
     }
   };
