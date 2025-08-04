@@ -29,7 +29,7 @@ const ChatInput = ({
           maxRows={maxRows}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyPress}
           placeholder={placeholder}
           disabled={disabled || loading}
           variant="outlined"
