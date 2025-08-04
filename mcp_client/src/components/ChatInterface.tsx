@@ -16,7 +16,7 @@ import { openaiService } from "../services/openaiService";
 import { mcpService } from "../services/mcpService";
 import { MCP_SERVER_URL } from "../constants";
 
-const ChatInterface: React.FC = () => {
+const ChatInterface = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);

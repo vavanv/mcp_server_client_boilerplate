@@ -31,6 +31,7 @@ export class MCPService {
       );
     }
   }
+
   async testConnection(): Promise<boolean> {
     try {
       // Use the health endpoint to test connection
@@ -69,6 +70,7 @@ export class MCPService {
       return false;
     }
   }
+
   private async makeRequest(
     method: string,
     params?: any
