@@ -1,0 +1,47 @@
+{
+  "name": "mcp-server-client-boilerplate",
+  "version": "1.0.0",
+  "description": "A comprehensive Model Context Protocol (MCP) implementation with server and client",
+  "private": true,
+  "workspaces": [
+    "mcp_server",
+    "mcp_client"
+  ],
+  "scripts": {
+    "dev": "concurrently \"yarn workspace mcp_server dev\" \"yarn workspace mcp_client dev\"",
+    "dev:server": "yarn workspace mcp_server dev",
+    "dev:client": "yarn workspace mcp_client dev",
+    "build": "yarn workspace mcp_server build && yarn workspace mcp_client build",
+    "build:server": "yarn workspace mcp_server build",
+    "build:client": "yarn workspace mcp_client build",
+    "start:server": "yarn workspace mcp_server start",
+    "preview:client": "yarn workspace mcp_client preview",
+    "lint": "yarn workspace mcp_client lint",
+    "clean": "yarn workspace mcp_server clean && yarn workspace mcp_client clean",
+    "install:all": "yarn install",
+    "prisma:generate": "yarn workspace mcp_server run prisma:generate",
+    "prisma:studio": "yarn workspace mcp_server run prisma:studio",
+    "prisma:seed": "yarn workspace mcp_server run prisma:seed",
+    "prisma:migrate": "yarn workspace mcp_server run prisma:migrate"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "yarn": "1.22.22"
+  },
+  "author": "",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "chatbot",
+    "react",
+    "typescript",
+    "vite",
+    "prisma",
+    "postgresql"
+  ]
+}

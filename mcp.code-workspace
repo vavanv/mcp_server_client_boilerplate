@@ -7,5 +7,7 @@
       "path": "mcp_client"
     }
   ],
-  "settings": {}
+  "settings": {
+    "cSpell.ignoreWords": ["chatbots"]
+  }
 }

@@ -1,18 +1,13 @@
-import React from 'react';
-import { Container, Typography } from '@mui/material';
-import MuiButton from './components/MuiButton';
+import React from "react";
+import { Box } from "@mui/material";
+import ChatInterface from "./components/ChatInterface";
 
 const App: React.FC = () => {
-    return (
-        <Container>
-            <Typography variant="h4" gutterBottom>
-                Welcome to My First MCP Client
-            </Typography>
-            <MuiButton color="primary" variant="contained" onClick={() => alert('Button Clicked!')}>
-                Click Me
-            </MuiButton>
-        </Container>
-    );
+  return (
+    <Box sx={{ height: "100vh", overflow: "hidden" }}>
+      <ChatInterface />
+    </Box>
+  );
 };
 
 export default App;
