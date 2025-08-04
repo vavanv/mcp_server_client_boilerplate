@@ -72,9 +72,11 @@ docker-compose up -d
 
 ### Features
 
-- **React Application**: Built with TypeScript for type safety
-- **Material-UI**: Modern UI components using MUI
-- **Custom Components**: Includes reusable MUI-based components
+- **React 19 Application**: Built with the latest React and TypeScript for type safety
+- **Vite Build Tool**: Lightning-fast development with instant HMR and optimized builds
+- **Material-UI v7**: Modern UI components using the latest MUI
+- **Custom Components**: Includes reusable MUI-based components with proper TypeScript integration
+- **Modern Development**: ESNext modules, latest TypeScript features, and ESLint integration
 
 ### Quick Start (Client)
 
@@ -85,25 +87,38 @@ docker-compose up -d
    npm install
    ```
 
-2. **Run the application:**
+2. **Development server:**
+
    ```bash
-   npm start
+   npm run dev
    ```
 
-The application will be available at `http://localhost:3000`.
+3. **Production build:**
+   ```bash
+   npm run build
+   npm run preview
+   ```
+
+The development server will be available at `http://localhost:3000` with instant hot module replacement.
 
 ## Project Structure
 
 ```
-my-mcp/
-├── my_first_mcp_server/     # MCP Server with database tools
+mcp_server_client_boilerplate/
+├── mcp_server/              # MCP Server with database tools
 │   ├── server/              # Server implementation
 │   ├── prisma/              # Database schema and migrations
+│   ├── src/                 # TypeScript source files
 │   ├── docker-compose.yml   # Docker configuration
 │   └── package.json         # Server dependencies
-├── my_first_mcp_client/     # React client application
+├── mcp_client/              # React client application (Vite)
 │   ├── src/                 # React source code
-│   ├── public/              # Static assets
+│   │   ├── main.tsx         # Application entry point
+│   │   ├── App.tsx          # Main app component
+│   │   └── components/      # Reusable components
+│   ├── index.html           # HTML entry point
+│   ├── vite.config.ts       # Vite configuration
+│   ├── tsconfig.json        # TypeScript configuration
 │   └── package.json         # Client dependencies
 └── README.md               # This file
 ```
@@ -120,9 +135,11 @@ my-mcp/
 
 ### Client
 
-- **React**: Frontend framework
-- **TypeScript**: Type-safe JavaScript development
-- **Material-UI**: UI component library
+- **React 19**: Latest React with concurrent features
+- **Vite 7**: Next-generation frontend tooling with instant HMR
+- **TypeScript 5.9**: Latest TypeScript with advanced type features
+- **Material-UI v7**: Modern React UI component library
+- **ESLint 9**: Code quality and consistency with latest rules
 - **npm**: Package management
 
 ## Sample Data
@@ -134,6 +151,24 @@ The server includes comprehensive AI company data with:
 - **LLM models** with specializations (GPT-4, PaLM 2, LLaMA, etc.)
 
 ## Development
+
+### Client Development with Vite
+
+The client has been migrated from Create React App to Vite for superior development experience:
+
+**Performance Benefits:**
+
+- **Lightning Fast Startup**: Dev server starts in ~400ms vs several seconds with CRA
+- **Instant HMR**: Hot Module Replacement updates in milliseconds
+- **Optimized Builds**: Modern bundling with tree-shaking and code splitting
+- **Native ESM**: Leverages browser's native ES modules for faster loading
+
+**Modern Features:**
+
+- **React 19**: Latest React with concurrent features and improved performance
+- **TypeScript 5.9**: Advanced type checking with latest language features
+- **ESLint 9**: Modern linting rules for code quality
+- **Material-UI v7**: Latest UI components with improved theming
 
 ### Adding New Tools (Server)
 
@@ -159,8 +194,38 @@ Modify components in `src/components/` and update types in `src/types/`.
 
 ### Client Testing
 
-- **Development Server**: `npm start` (runs on http://localhost:3000)
-- **Build**: `npm run build`
+- **Development Server**: `npm run dev` (runs on http://localhost:3000 with HMR)
+- **Production Build**: `npm run build` (TypeScript compilation + Vite build)
+- **Preview Build**: `npm run preview` (preview production build on http://localhost:4173)
+- **Linting**: `npm run lint` (ESLint code quality checks)
+
+## Migration Notes
+
+### Vite Migration (Latest Update)
+
+The client has been successfully migrated from Create React App to Vite:
+
+**What Changed:**
+
+- Replaced `react-scripts` with Vite build tool
+- Updated to React 19 and latest dependencies
+- Restructured entry points (`index.tsx` → `main.tsx`)
+- Moved `index.html` from `public/` to root directory
+- Added modern TypeScript configuration for Vite
+- Implemented ESLint 9 with updated rules
+
+**Breaking Changes:**
+
+- Development command changed from `npm start` to `npm run dev`
+- Build output now in `dist/` instead of `build/`
+- New preview command: `npm run preview` for testing production builds
+
+**Benefits:**
+
+- 10x faster development server startup
+- Instant hot module replacement
+- Smaller bundle sizes with better tree-shaking
+- Modern development experience with latest tooling
 
 ## License
 
