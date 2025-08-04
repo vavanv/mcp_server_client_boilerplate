@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
-import ChatInterface from "./components/ChatInterface";
+import Chat from "./Chat";
 
 const App = () => {
   return (
     <Box sx={{ height: "100vh", overflow: "hidden" }}>
-      <ChatInterface />
+      <Chat />
     </Box>
   );
 };

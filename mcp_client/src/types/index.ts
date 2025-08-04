@@ -39,3 +39,13 @@ export interface LLM {
   specialization: string;
   companyId: string;
 }
+
+export interface ChatInputProps {
+  value: string;
+  onChange: (value: string) => void;
+  onSend: () => void;
+  disabled?: boolean;
+  loading?: boolean;
+  placeholder?: string;
+  maxRows?: number;
+}
