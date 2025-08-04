@@ -6,16 +6,19 @@
     "seed": "node prisma/seed-lastone.js"
   },
   "scripts": {
-    "server:build": "tsc",
-    "server:build:watch": "tsc --watch",
-    "server:dev": "tsx server/server.ts",
-    "server:inspect2": "set DANGEROUSLY_OMIT_AUTH=true && npx @modelcontextprotocol/inspector npm run server:dev",
-    "server:inspect": "npx @modelcontextprotocol/inspector npm run server:dev",
-    "prisma:generate": "npx prisma generate",
-    "prisma:studio": "npx prisma studio",
-    "prisma:seed": "npx prisma db seed",
+    "dev": "tsx server/server.ts",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "start": "node dist/server/server.js",
+    "inspect": "npx @modelcontextprotocol/inspector yarn dev",
+    "inspect:unsafe": "set DANGEROUSLY_OMIT_AUTH=true && npx @modelcontextprotocol/inspector yarn dev",
+    "prisma:generate": "yarn prisma generate",
+    "prisma:studio": "yarn prisma studio",
+    "prisma:seed": "yarn prisma db seed",
+    "prisma:migrate": "yarn prisma migrate dev",
     "prisma:seed-chats": "node scripts/seed-chats.js",
-    "prisma:populate-chats": "node scripts/populate-chats.js"
+    "prisma:populate-chats": "node scripts/populate-chats.js",
+    "clean": "rimraf dist"
   },
   "keywords": [],
   "author": "",
@@ -26,14 +29,15 @@
     "@types/express": "^5.0.3",
     "@types/node": "^24.1.0",
     "prisma": "^6.13.0",
+    "rimraf": "^6.0.1",
     "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "@faker-js/faker": "^9.9.0",
     "@inquirer/prompts": "^7.8.0",
-    "@modelcontextprotocol/sdk": "^1.17.0",
-    "@modelcontextprotocol/server-everything": "^2025.7.1",
+    "@modelcontextprotocol/sdk": "^1.17.1",
+    "@modelcontextprotocol/server-everything": "^2025.7.2",
     "@prisma/client": "^6.13.0",
     "ai": "^4.3.19",
     "dotenv": "^17.2.1",
