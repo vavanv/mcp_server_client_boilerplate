@@ -1,4 +1,4 @@
-# My First MCP Server
+# MCP Server
 
 A Model Context Protocol (MCP) server that provides tools for querying AI company information from a PostgreSQL database. This server demonstrates how to build MCP tools that interact with a database using Prisma ORM.
 
