@@ -37,7 +37,7 @@ cd mcp_client
 npm install
 ```
 
-### 2. **Configure OpenAI API Key**
+### 2. **Configure Environment Variables**
 
 1. Copy the environment template:
 
@@ -47,29 +47,44 @@ npm install
 
 2. Get your OpenAI API key from [OpenAI Platform](https://platform.openai.com/api-keys)
 
-3. Edit `.env` file and add your API key:
+3. Edit `.env` file and configure:
+
    ```env
+   # Required: OpenAI API key
    VITE_OPENAI_API_KEY=sk-your-actual-api-key-here
+
+   # MCP Server URL (uses proxy to avoid CORS)
+   VITE_MCP_SERVER_URL=/api/mcp
+
+   # Proxy Target - where Vite forwards MCP requests
+   # For local development:
+   VITE_PROXY_TARGET=http://localhost:3100
+   # For remote server:
+   # VITE_PROXY_TARGET=https://mcp.bmcom.ca
    ```
 
 ### 3. **Start MCP Server**
 
-Make sure your MCP server is running on `http://localhost:3100`:
+Make sure your MCP server is running on the target specified in `VITE_PROXY_TARGET`:
+
+**For local development:**
 
 ```bash
 cd ../mcp_server
-npm run server:dev
+yarn dev
 ```
+
+**For remote server:** Ensure your remote MCP server is accessible at the URL specified in `VITE_PROXY_TARGET`.
 
 ### 4. **Start the Chatbot**
 
 ```bash
-npm run dev
+yarn dev
 ```
 
 The chatbot will be available at `http://localhost:3000` (or next available port)
 
-> **Note**: The application uses Vite proxy to handle CORS issues with the MCP server, so no additional CORS configuration is needed.
+> **Note**: The application uses Vite proxy configuration to handle CORS issues with the MCP server, so no additional CORS configuration is needed.
 
 ## Usage
 
@@ -169,11 +184,39 @@ src/
 # Required: OpenAI API key
 VITE_OPENAI_API_KEY=sk-your-api-key
 
-# Optional: Custom MCP server URL (default: http://localhost:3100/mcp)
-# When using proxy (recommended): /api/mcp
-# When using direct connection: http://localhost:3100/mcp
+# MCP Server URL (client-side URL)
+# Use /api/mcp for proxy (recommended - no CORS issues)
+# Use http://localhost:3100/mcp for direct connection (requires CORS setup)
 VITE_MCP_SERVER_URL=/api/mcp
+
+# Proxy Target (where Vite forwards requests)
+# The actual MCP server URL that Vite proxy will target
+VITE_PROXY_TARGET=http://localhost:3100
+# For remote server: VITE_PROXY_TARGET=https://mcp.bmcom.ca
 ```
+
+### **Proxy Configuration Explained**
+
+The client uses a **two-layer URL configuration**:
+
+1. **`VITE_MCP_SERVER_URL`**: What the client code uses (e.g., `/api/mcp`)
+2. **`VITE_PROXY_TARGET`**: Where Vite actually forwards the requests (e.g., `http://localhost:3100`)
+
+**Request Flow:**
+
+```
+Client Request:    POST /api/mcp
+                   ↓ (Vite proxy intercepts)
+Proxy Rewrite:     POST /mcp
+                   ↓ (forwards to target)
+Actual Server:     POST http://localhost:3100/mcp
+```
+
+**Benefits:**
+
+- ✅ No CORS issues (same-origin requests)
+- ✅ Environment flexibility (change target without touching client code)
+- ✅ Easy switching between local and remote servers
 
 ### **Configuration Management**
 
@@ -183,6 +226,7 @@ All configuration is centralized in `src/constants.ts`:
 - **OpenAI Settings**: Model, tokens, temperature
 - **API Endpoints**: Proxy paths for CORS-free operation
 - **Environment Variables**: Type-safe access to env vars
+- **Proxy Configuration**: Automatic proxy target detection and security settings
 
 ### **OpenAI Settings** (configurable in `constants.ts`)
 
@@ -196,10 +240,11 @@ All configuration is centralized in `src/constants.ts`:
 
 1. **"Disconnected" Status**
 
-   - Ensure MCP server is running on port 3100
+   - Check if `VITE_PROXY_TARGET` is set correctly in `.env`
+   - Ensure MCP server is running on the target URL
+   - Verify the target server is accessible (try opening in browser)
    - Check server logs for errors
-   - Verify database connection
-   - Check if proxy configuration is working
+   - Verify database connection on the server
 
 2. **"OpenAI Not Configured" Warning**
 
@@ -210,23 +255,31 @@ All configuration is centralized in `src/constants.ts`:
 3. **CORS Errors**
 
    - Ensure `VITE_MCP_SERVER_URL=/api/mcp` in `.env`
-   - Verify Vite proxy configuration in `vite.config.ts`
-   - Check browser console for proxy errors
+   - Verify `VITE_PROXY_TARGET` is set to the correct server URL
+   - Check Vite proxy configuration in `vite.config.ts`
+   - Restart the development server after changing proxy settings
 
-4. **SSE/Streaming Errors**
+4. **Proxy Configuration Issues**
+
+   - Verify `VITE_PROXY_TARGET` matches your actual MCP server URL
+   - For local development: `VITE_PROXY_TARGET=http://localhost:3100`
+   - For remote server: `VITE_PROXY_TARGET=https://your-server.com`
+   - Check browser Network tab to see if requests are being proxied correctly
+
+5. **SSE/Streaming Errors**
 
    - Check if MCP server supports Server-Sent Events
    - Verify Accept headers include `text/event-stream`
    - Check browser console for parsing errors
 
-5. **No Response from AI**
+6. **No Response from AI**
 
    - Check browser console for errors
    - Verify OpenAI API key is correct
    - Check network connectivity
    - Ensure MCP server is returning data
 
-6. **Build Errors**
+7. **Build Errors**
    - Run `npm install --legacy-peer-deps`
    - Clear node_modules and reinstall
    - Check TypeScript errors
@@ -295,9 +348,17 @@ npm run lint
 
 ### **CORS Resolution** ✅
 
-- Implemented Vite proxy configuration
+- Implemented Vite proxy configuration with environment-based targets
 - Eliminated CORS issues with MCP server
 - Seamless development experience
+- Flexible proxy target configuration for different environments
+
+### **Proxy Configuration Enhancement** ✅
+
+- Moved hardcoded URLs from `vite.config.ts` to environment variables
+- Added `VITE_PROXY_TARGET` for configurable proxy destinations
+- Automatic HTTPS/HTTP security detection
+- Support for both local development and remote server configurations
 
 ### **SSE Support** ✅
 
