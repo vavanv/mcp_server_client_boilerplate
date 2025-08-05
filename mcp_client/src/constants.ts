@@ -20,6 +20,7 @@ export const API_ENDPOINTS = {
 export const ENV = {
   MCP_SERVER_URL: import.meta.env.VITE_MCP_SERVER_URL,
   OPENAI_API_KEY: import.meta.env.VITE_OPENAI_API_KEY,
+  PROXY_TARGET: import.meta.env.VITE_PROXY_TARGET,
 } as const;
 
 // Derived Constants
