@@ -1,5 +1,5 @@
 {
-  "name": "my_first_mcp_server",
+  "name": "mcp_server",
   "version": "1.0.0",
   "main": "server/server.ts",
   "prisma": {
